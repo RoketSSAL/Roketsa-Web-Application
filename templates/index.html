@@ -1,0 +1,445 @@
+{% load static %} {% load retrieve_maps_url %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="RoketSA liseli öğrenciler arasında kurulmuş ve yarışmalar için roket yapmaya çalışan bir öğrenci takımıdır."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="static/content/img/favicon.webp" />
+    <link rel="apple-touch-icon" href="static/content/img/favicon.webp" />
+
+    <link rel="stylesheet" href="static/css/general.css" />
+    <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="static/css/queries.css" />
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      defer
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+      defer
+    ></script>
+
+    <script src="static/src/script.js" defer></script>
+    <script src="https://unpkg.com/scrollreveal" ;></script>
+
+    <style>
+      * {
+        transition: color, background-color .25s ease;
+      }
+
+      body {
+        color: #555;
+        --color-bg-adefined: {{ hero_section.hero_bg }};
+        --featuredin-logos-gap: {{ featuredin_section.general.featured_in_logos_gap }}rem;
+        --nav-link-color: #333;
+        --heading-color: #333;
+        --btn-outline-color: #444;
+        --about-us-circle-inner: #d0ebff;
+        --about-us-circle-outter: #e7f5ff;
+        --subheading-color: #1864ab;
+        --department-icon-color: #1864ab;
+        --department-icon-bgcolor: #d0ebff;
+        --cta-text-color: #071e33;
+        --cta-btn-bgcolor: #071e33;
+        --cta-bg-linear1: #1864ab;
+        --cta-bg-linear2: #4683bc;
+        --cta-bg-linear3: rgba(24, 100, 171, .5);
+        --cta-bg-linear4: rgba(70, 131, 188, .5);
+        --color-input: #071e33;
+        --footer-link-color: #767676
+      }
+
+      .header,.section-hero {
+        background-color: var(--color-bg-adefined);
+      }
+
+        body.dark-theme {
+          color: #eee;
+          background-color: #0c3256;
+          --color-bg-adefined: #071e33;
+          --nav-link-color: #eee;
+          --heading-color: #eee;
+          --btn-outline-color: #ddd;
+          --about-us-circle-inner: #071e33;
+          --about-us-circle-outter: #0a2844;
+          --subheading-color: #8cb2d5;
+          --department-icon-color: #74a2cd;
+          --department-icon-bgcolor: #071e33;
+          --cta-text-color: #e7f6ff;
+          --cta-btn-bgcolor:#1864ab;
+          --cta-bg-linear1: #051422;
+          --cta-bg-linear2: #071e33;
+          --cta-bg-linear3: rgba(7, 30, 51, .5);
+          --cta-bg-linear4: rgba(5, 20, 34, .5);
+          --color-input: #071e33;
+          --footer-link-color: #bbb
+        }
+
+        body.dark-theme .logo,body.dark-theme  .footer-logo {
+          content: url('static/content/img/RoketSA-light.webp');
+          height: 4rem !important;
+        }
+
+        body.dark-theme.sticky .header {
+          background-color: #0c3256;
+        }
+
+        body.dark-theme .heading-featured-in {
+          color: #ccc;
+        }
+
+        body.dark-theme .logos img {
+          filter: contrast(150%);
+          opacity: .5;
+        }
+    </style>
+
+    <title>RoketSA &mdash; Roket Takımı</title>
+  </head>
+  <body>
+    <div class="loading-screen">
+      <img class="loading-image" src="static/content/img/favicon.webp" alt="" />
+    </div>
+
+    <header class="header">
+      <a href="#">
+        <img
+          class="logo"
+          src="static/content/img/RoketSA-black.webp"
+          alt="RoketSA Logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          {% for navigation in navigations %}
+          <li>
+            <a
+              class="main-nav-link {% if navigation.is_cta == True %}nav-cta{% endif %}"
+              href="#"
+              >{{ navigation.display_name }}</a
+            >
+          </li>
+          {% endfor %}
+          <li>
+            <a class="main-nav-link theme-changer" href="/change_theme"
+              ><ion-icon name="sunny-outline"></ion-icon
+            ></a>
+          </li>
+        </ul>
+      </nav>
+
+      <button class="btn-mobile-nav">
+        <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
+        <ion-icon class="icon-mobile-nav" name="close-outline"></ion-icon>
+      </button>
+    </header>
+
+    <main>
+      <section class="section-hero">
+        <div class="hero">
+          <div class="hero-text-box scroll-reveal">
+            <h1 class="heading-primary">{{ hero_section.hero_title }}</h1>
+            <p class="hero-description">{{ hero_section.hero_description }}</p>
+            <div class="btns">
+              {% if hero_section.left_button_displayed == True %}
+              <a href="#" class="btn btn-primary margin-right-sm"
+                >{{ hero_section.left_button_content }}</a
+              >
+              {% endif %} {% if hero_section.right_button_displayed == True %}
+              <a href="#" class="btn btn-outline"
+                >{{ hero_section.right_button_content }}</a
+              >
+              {% endif %}
+            </div>
+          </div>
+          <div class="hero-img-box">
+            <picture>
+              <source srcset="static/content/img/hero.webp" type="image/webp" />
+              <source srcset="static/content/img/hero.png" type="image/png" />
+
+              <img
+                src="static/content/img/hero.webp"
+                class="hero-img"
+                alt="Güvenli bir alanda kalkış yapmakta olan bir roket."
+              />
+            </picture>
+          </div>
+        </div>
+      </section>
+
+      {% if featuredin_section.general.featured_in_visibility == True %}
+      <section section class="section-featured">
+        <div class="container">
+          <h2 class="heading-featured-in">
+            {{ featuredin_section.general.featured_in_title }}
+          </h2>
+          <div class="logos">
+            {% for logo in featuredin_section.logos %}
+            <img src="{{logo.logo_url}}" alt="{{logo.logo_name}}" />
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+      {% endif %}
+
+      <section class="section-about-us container grid grid-col-3">
+        <div
+          class="about-us-img-container {% if about_us_section.about_us_circle_animation == True %}animate{% endif %}"
+        >
+          <img
+            class="about-us-img"
+            src="{{ about_us_section.about_us_image_url }}"
+            alt="Ekip halinde bir Macbook üzerinde çalışan insanlar"
+            loading="lazy"
+          />
+        </div>
+        <div class="about-us-content">
+          <div class="about-us-header">
+            <p class="subheading">{{ about_us_section.about_us_subheading }}</p>
+            <h2 class="heading-secondary">
+              {{ about_us_section.about_us_primary_heading }}
+            </h2>
+          </div>
+          <p class="about-us-text">{{ about_us_section.about_us_content }}</p>
+        </div>
+      </section>
+
+      <section class="section-departments container" id="departments">
+        <div class="departments-header">
+          <p class="subheading">
+            {{ departments_section.departments_subheading }}
+          </p>
+          <h2 class="heading-secondary">
+            {{ departments_section.departments_primary_heading }}
+          </h2>
+        </div>
+        <div class="departments grid grid-col-3">
+          {% for _, department_value in departments_section.departments.items %}
+          <div class="department">
+            <ion-icon
+              class="department-icon {% if departments_section.department_icon_animation == True %}animated{% endif %}"
+              name="{{ department_value.icon }}"
+            ></ion-icon>
+            <p class="department-title">{{ department_value.name }}</p>
+            <p class="department-text">{{ department_value.description }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+      <section class="section-members">
+        <div class="members-header text-center">
+          <p class="subheading">{{ team_section.team_subheading }}</p>
+          <h2 class="heading-secondary">
+            {{ team_section.team_primary_heading }}
+          </h2>
+          <div class="grid grid-col-5 container">
+            {% for name, member in team_section.team.items %}
+            <div class="member {{ name }}">
+              <div class="member-img-box">
+                <img
+                  class="members-picture"
+                  src="{{ member.picture }}"
+                  alt="{{ member.name }} Resim"
+                  loading="lazy"
+                />
+                <div class="member-social">
+                  {% for media, link in member.social_medias.items %}
+                  <a href="{{ link }}"
+                    ><ion-icon
+                      class="member-{{media}}-icon"
+                      name="logo-{{media}}"
+                    ></ion-icon
+                  ></a>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="member-details">
+                <p class="member-name">{{ member.full_name }}</p>
+                <p class="member-role">{{ member.role }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section class="section-cta">
+        <div class="container">
+          <div class="cta">
+            <div class="cta-text-box">
+              <div class="heading-secondary">
+                {{ cta_section.cta_primary_heading }}
+              </div>
+              <p class="cta-text">{{ cta_section.cta_description }}</p>
+
+              <form class="cta-form" action="mailing_list/add" method="POST">
+                {% csrf_token %}
+                <div>
+                  <label for="full-name">İsim</label>
+                  <input
+                    id="full-name"
+                    type="text"
+                    name="full-name"
+                    placeholder="Furkan Esen"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label for="email">Elektronik Posta</label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="ben@ornek.com"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label for="select-where">Bizi nereden buldunuz?</label>
+                  <select id="select-where" name="where-found" required>
+                    <option value="">Lütfen bir tanesini seçin:</option>
+                    {% for o, v in cta_section.where_found_options.items %}
+                    <option value="{{ o }}">{{v}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <input
+                  type="submit"
+                  value="Şimdi kaydol"
+                  class="btn btn-form"
+                />
+              </form>
+            </div>
+            <div
+              class="cta-img-box {% if cta_section.image_animation == True %}animated{% endif %}"
+              role="img"
+              aria-label="Kalkış yapan bir roket"
+              loading="lazy"
+            ></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container grid grid-footer">
+        <div class="logo-col">
+          <a href="#" class="footer-logo">
+            <img
+              class="logo"
+              src="static/content/img/RoketSA-black.webp"
+              alt="RoketSA Logo"
+              loading="lazy"
+            />
+          </a>
+
+          <ul class="social-links">
+            {% for media, link in footer_section.social_icons.items %}
+            <li>
+              <a
+                class="footer-link"
+                href="{{ link }}"
+                rel="noopener norefferer"
+                target="_blank"
+                ><ion-icon
+                  class="social-icon"
+                  name="logo-{{ media }}"
+                ></ion-icon
+              ></a>
+            </li>
+            {% endfor %}
+          </ul>
+
+          <p class="copyright">
+            Copyright &copy; 2022 by Roketsa. Developed by
+            <strong>Furkan Esen</strong>
+          </p>
+        </div>
+        <div class="address-col">
+          <p class="footer-heading">Bize ulaş</p>
+
+          <address class="contact">
+            <p class="address">
+              <a
+                class="footer-link"
+                href="{{ footer_section.address_line|retrieve_maps_url }}"
+                target="_blank"
+                rel="norefferer noopener"
+                >{{ footer_section.address_line }}</a
+              >
+            </p>
+            <p>
+              <a class="footer-link" href="tel:{{ footer_section.tel_line }}"
+                >{{ footer_section.tel_line }}</a
+              >
+              <a
+                class="footer-link"
+                href="mailto:{{ footer_section.mail_line }}"
+                >{{ footer_section.mail_line }}</a
+              >
+            </p>
+          </address>
+        </div>
+        <nav class="nav-col">
+          <div class="footer-heading">Yararlı Linkler</div>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">Hakkımızda</a></li>
+            <li><a class="footer-link" href="#">Departmanlar</a></li>
+            <li><a class="footer-link" href="#">Ekip</a></li>
+            <li><a class="footer-link" href="#">Bülten</a></li>
+          </ul>
+        </nav>
+        <nav class="nav-col socialmedia-col">
+          <div class="footer-heading">Roketsa Social</div>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">Giriş Yap</a></li>
+            <li><a class="footer-link" href="#">Kayıt Ol</a></li>
+            <li><a class="footer-link" href="#">Kullanıcı Paneli</a></li>
+          </ul>
+        </nav>
+        <nav class="nav-col customer-col">
+          <div class="footer-heading">Yasal</div>
+          <ul class="footer-nav">
+            <li><a class="footer-link" href="#">Gizlilik Politikası</a></li>
+            <li><a class="footer-link" href="#">Kullanım Esasları</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      // Theme Changer
+
+      const themeChangerEl = document.querySelector(".theme-changer");
+
+      var siteTheme = "{{ site_theme|safe }}";
+
+      if (siteTheme === "dark-theme") {
+        let iconTheme = themeChangerEl.querySelector("ion-icon");
+        iconTheme.setAttribute("name", "moon-outline");
+        document.body.classList.add("dark-theme");
+        document.body.classList.remove("light-theme");
+      }
+    </script>
+  </body>
+</html>
